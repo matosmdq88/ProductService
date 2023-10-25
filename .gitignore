@@ -1,0 +1,27 @@
+# User-specific files
+*.suo
+*.user
+
+# Build results
+**/bin
+**/obj
+
+# NuGet Packages
+*.nupkg
+**/packages/*
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+
+# dotnet stuff
+project.lock.json
+
+# VS 2015+
+*.vc.vc.opendb
+
+# Visual Studio temp something
+.vs/
+
+# Visual Studio Code
+.vscode/
+
