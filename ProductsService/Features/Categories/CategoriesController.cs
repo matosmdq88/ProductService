@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductsService.Base;
 using ProductsService.Features.Categories.Create;
+using ProductsService.Features.Categories.GetAll;
 using System.Net;
 
 namespace ProductsService.Features.Categories
@@ -19,18 +20,20 @@ namespace ProductsService.Features.Categories
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult<BaseResponse<CreateResponseDTO>>> Create(CreateCommand command)
+        [HttpPost("Create")]
+        public async Task<ActionResult<BaseResponse<CreateResponseDTO>>> Create([FromBody]CreateCommand command)
         {
             var responseHandler = await _mediatr.Send(command);
             var response = new BaseResponse<CreateResponseDTO>(true, (int)HttpStatusCode.Created, data: responseHandler);
             return new ObjectResult(response);
         } 
 
-        [HttpGet]
-        public async Task<ActionResult<BaseResponse>> Get()
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<BaseResponse<List<GetAllDTO>>>> GetAll([FromQuery]GetAllQuery query)
         {
-            return new BaseResponse(true,200);
+            var responseHandler = await _mediatr.Send(query);
+            var response = new BaseResponse<List<GetAllDTO>>(true, (int)HttpStatusCode.OK, data: responseHandler);
+            return new ObjectResult(response);
         }
     }
 }
